@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Task</title>
+  {% load static %}
+  <link href="{% static 'src/styles.css' %}" rel="stylesheet" />
+</head>
+<body class="bg-blue-50 min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white shadow-2xl border border-blue-200 rounded-2xl w-full max-w-md p-8">
+    
+    <!-- Header -->
+    <h1 class="text-2xl font-bold text-center text-blue-700 mb-6">
+      📝 Edit New Task
+    </h1>
+
+    <!-- Task Form -->
+    <form action="{% url "editlist" task.id %}" method="POST" class="space-y-5">
+      {% csrf_token %}
+      
+      <!-- Task Title -->
+      <div>
+        <label for="title" class="block text-sm font-medium text-gray-700">Task Title</label>
+        <input type="text" id="title" name="title" placeholder="e.g., Finish project report" 
+               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+      </div>
+
+      <!-- Task Description -->
+      <div>
+        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+        <textarea id="description" name="description" rows="3" placeholder="Optional notes..." 
+                  class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+      </div>
+
+      <!-- Due Date -->
+      <div>
+        <label for="due_date" class="block text-sm font-medium text-gray-700">Due Date</label>
+        <input type="date" id="due_date" name="due_date" 
+               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+      </div>
+
+      
+
+      <!-- Submit Button -->
+      <div class="pt-4">
+        <button type="submit"
+                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition duration-200">
+          ➕ Edit Task
+        </button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

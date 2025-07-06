@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Things To Do</title>
+  {% load static %}
+  <link href="{% static 'src/styles.css' %}" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-100 min-h-screen relative">
+
+  <!-- Top-Right Login & Register Buttons -->
+  <div class="absolute top-4 right-4 space-x-3 z-50">
+    <a href="{% url 'login_page' %}">
+      <button class="bg-indigo-400 hover:bg-indigo-300 text-white font-semibold py-1 px-4 rounded-lg transition duration-200">
+        Login
+      </button>
+    </a>
+    <a href="{% url 'register_page' %}">
+      <button class="bg-indigo-400 hover:bg-indigo-300 text-white font-semibold py-1 px-4 rounded-lg transition duration-200">
+        Register
+      </button>
+    </a>
+  </div>
+
+  <!-- Main Content Box -->
+  <div class="flex items-center justify-center pt-20">
+    <div class="bg-white rounded-[30px] shadow-lg w-full max-w-md p-6 border-2 border-blue-200">
+
+      <!-- Clouds -->
+      <div class="flex justify-around -mt-16 mb-4">
+        <div class="w-20 h-14 bg-white rounded-full shadow-inner flex items-center justify-center text-sm font-bold">☁️</div>
+        <div class="w-20 h-14 bg-blue-200 rounded-full shadow-inner flex items-center justify-center text-sm font-bold">☁️</div>
+        <div class="w-20 h-14 bg-white rounded-full shadow-inner flex items-center justify-center text-sm font-bold">☁️</div>
+      </div>
+
+      <!-- Title -->
+      <h2 class="text-center text-2xl font-semibold mb-2 font-[cursive] text-gray-700">
+        Things To Do
+      </h2>
+
+      <!-- Add Task Button -->
+      <div class="flex justify-center mb-6">
+        <a href="{% url 'createlist' %}">
+          <button class="bg-blue-400 hover:bg-blue-500 text-white font-semibold py-1 px-4 rounded-lg transition duration-200">
+            + Add Task
+          </button>
+        </a>
+      </div>
+
+      <!-- Task Cards -->
+      <ul class="bg-white shadow-inner rounded-xl divide-y divide-gray-200">
+        {% for task in tasks %}
+        <li class="p-5">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-lg font-medium text-gray-900">{{ task.title }}</h3>
+              <p class="text-sm text-gray-500">{{ task.description }}</p>
+              {% if task.due_date %}
+              <p class="text-sm font-medium text-gray-500 mt-1">Due: <span class="text-blue-600">{{ task.due_date }}</span></p>
+              {% endif %}
+            </div>
+            <div class="flex space-x-2">
+              <a href="{% url 'editlist' task.id %}" class="text-indigo-600 text-sm font-medium hover:text-indigo-500">Edit</a>
+              <a href="{% url 'deletelist' task.id %}" onclick="return confirm('Do you want to delete the data?')">
+                <button class="text-red-600 text-sm font-medium hover:text-red-500">Delete</button>
+              </a>
+            </div>
+          </div>
+        </li>
+        {% empty %}
+        <li class="p-5 text-center text-gray-500">No tasks yet!</li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </div>
+
+</body>
+</html>
