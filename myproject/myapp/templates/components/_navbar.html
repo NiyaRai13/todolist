@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     {% load static %}
+  <link href="{% static 'src/styles.css' %}" rel="stylesheet" />
+</head>
+<body>
+    <!-- 🌸 Navbar -->
+<nav class="w-full bg-pink-100 shadow-md">
+    <div class="absolute top-4 right-4 space-x-3 z-50">
+    {% if user.is_authenticated %}
+    <a href="">
+      <button class="bg-indigo-400 hover:bg-indigo-300 text-white font-semibold py-1 px-4 rounded-lg transition duration-200">
+        {{user.username}}
+      </button>
+    </a>
+     <a href="{% url 'logoutpage' %}">
+      <button class="bg-indigo-400 hover:bg-indigo-300 text-white font-semibold py-1 px-4 rounded-lg transition duration-200">
+        Logout
+      </button>
+    </a>
+    {% else %}
+       <a href="{% url 'login_page' %}">
+      <button class="bg-indigo-400 hover:bg-indigo-300 text-white font-semibold py-1 px-4 rounded-lg transition duration-200">
+          Login
+      </button>
+    </a>
+    {% endif %}
+    <a href="{% url 'register_page' %}">
+      <button class="bg-indigo-400 hover:bg-indigo-300 text-white font-semibold py-1 px-4 rounded-lg transition duration-200">
+        Register
+      </button>
+    </a>
+   
+  </div>
+  </nav>
+</body>
+</html>
